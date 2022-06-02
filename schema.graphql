@@ -1,0 +1,51 @@
+type StakePerDay @entity {
+  # DayId
+  id: ID!
+
+  # Count of Stake created
+  stakeCreatedCount: BigInt!
+
+  # Sum of Stake created
+  stakeCreatedSum: BigInt!
+
+  # Count of Stake removed
+  stakeRemovedCount: BigInt!
+
+  # Sum of Stake removed
+  stakeRemovedSum: BigInt!
+
+  # totalStakes
+  totalStake: BigInt!
+}
+
+type StakePerHour @entity {
+  # HourId
+  id: ID!
+
+  # Count of Stake created
+  stakeCreatedCount: BigInt!
+
+  # Sum of Stake created
+  stakeCreatedSum: BigInt!
+
+  # Count of Stake removed
+  stakeRemovedCount: BigInt!
+
+  # Sum of Stake removed
+  stakeRemovedSum: BigInt!
+}
+
+type RewardsDistributedEntity @entity {
+  # HourId
+  id: ID!
+
+  # Amount of Rewards Distributed
+  _distributionAmount: BigInt!
+
+  # Total Rewards 
+  totalRewards: BigInt!
+
+  # Total Distributions
+  totalDistributions: BigInt!
+  
+}

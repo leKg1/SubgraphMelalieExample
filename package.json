@@ -1,0 +1,16 @@
+{
+  "name": "melaliebasic01",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ lekg1/melaliebasic01",
+    "create-local": "graph create --node http://localhost:8020/ lekg1/melaliebasic01",
+    "remove-local": "graph remove --node http://localhost:8020/ lekg1/melaliebasic01",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 lekg1/melaliebasic01"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.20.1",
+    "@graphprotocol/graph-ts": "0.20.0"
+  }
+}

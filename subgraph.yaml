@@ -1,0 +1,48 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Melalie
+    network: matic
+    source:
+      address: "0xb9784E05C7af6068FC82A80730a599fE17Ca2aDf"
+      abi: Melalie
+      startBlock: 17388538 # Contract Creation Block
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - OwnershipTransferred
+        - Paused
+        - RewardWithdrawn
+        - RewardsDistributed
+        - StakeCreated
+        - StakeRemoved
+        - Transfer
+        - Unpaused
+      abis:
+        - name: Melalie
+          file: ./abis/Melalie.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Paused(address)
+          handler: handlePaused
+        - event: RewardWithdrawn(indexed address,uint256)
+          handler: handleRewardWithdrawn
+        - event: RewardsDistributed(uint256)
+          handler: handleRewardsDistributed
+        - event: StakeCreated(indexed address,uint256)
+          handler: handleStakeCreated
+        - event: StakeRemoved(indexed address,uint256)
+          handler: handleStakeRemoved
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Unpaused(address)
+          handler: handleUnpaused
+      file: ./src/mapping.ts
