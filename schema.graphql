@@ -1,4 +1,4 @@
-type StakePerDay @entity {
+type MelaliePerDay @entity {
   # DayId
   id: ID!
 
@@ -16,9 +16,15 @@ type StakePerDay @entity {
 
   # totalStakes
   totalStake: BigInt!
+
+    # Total Rewards 
+  totalRewards: BigInt!
+
+  # Total Distributions
+  totalDistributions: BigInt!
 }
 
-type StakePerHour @entity {
+type MelaliePerHour @entity {
   # HourId
   id: ID!
 
@@ -33,19 +39,13 @@ type StakePerHour @entity {
 
   # Sum of Stake removed
   stakeRemovedSum: BigInt!
-}
 
-type RewardsDistributedEntity @entity {
-  # HourId
-  id: ID!
+    # totalStakes
+  totalStake: BigInt!
 
-  # Amount of Rewards Distributed
-  _distributionAmount: BigInt!
-
-  # Total Rewards 
+    # Total Rewards 
   totalRewards: BigInt!
 
   # Total Distributions
   totalDistributions: BigInt!
-  
 }
