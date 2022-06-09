@@ -46,6 +46,8 @@ export function findAndUpdateMissingDays(dayId: i32): void {
         log.debug(`loading totalStake ${currentDayId} successful was: ${currentPerDay.totalStake}`, [])
         foundLastDayWithData = currentDayId;
         foundLastData = currentPerDay.totalStake;
+
+        currentPerDay.save();
       }
       if(currentDayId<firstDayId) {
         log.debug(`never found currentDayId ${currentDayId} - exiting loop`, [])
@@ -62,6 +64,13 @@ export function findAndUpdateMissingDays(dayId: i32): void {
         log.debug(`loading currentDayId ${currentDayId} was not successful creating new!`, [])
         currentPerDay = new MelaliePerDay(BigInt.fromI32(d).toString())
         currentPerDay.totalStake =  BigInt.fromI32(0);
+
+        currentPerDay.stakeRemovedCount = BigInt.fromI32(0);
+        currentPerDay.stakeRemovedSum =  BigInt.fromI32(0);
+        currentPerDay.stakeCreatedCount = BigInt.fromI32(0);
+        currentPerDay.stakeCreatedSum =  BigInt.fromI32(0);
+        currentPerDay.totalRewards = BigInt.fromI32(0);
+        currentPerDay.totalDistributions =  BigInt.fromI32(0);
       }
       log.debug(`currentDayId ${currentDayId} has totalStake ${foundLastData} of last day with data ${foundLastDayWithData}!`, [])
       currentPerDay.totalStake = foundLastData
@@ -92,7 +101,7 @@ export function handleStakeCreated(event: StakeCreated): void {
   melaliePerDay.stakeCreatedSum = melaliePerDay.stakeCreatedSum.plus(event.params._stake);
   melaliePerDay.stakeCreatedCount = melaliePerDay.stakeCreatedCount.plus(BigInt.fromI32(1));
   
-  // findAndUpdateMissingDays(dayId)   
+  findAndUpdateMissingDays(dayId)   
   //TODO maybe later
   // melaliePerDay.totalStake = melalie.totalStakes();
   melaliePerDay.save();
@@ -135,7 +144,7 @@ export function handleStakeRemoved(event: StakeRemoved): void {
   melaliePerDay.stakeRemovedCount = melaliePerDay.stakeRemovedCount.plus(BigInt.fromI32(1));
 
     //TODO maybe later
-  // findAndUpdateMissingDays(dayId)  
+  findAndUpdateMissingDays(dayId)  
   // melaliePerDay.totalStake = melalie.totalStakes();
   melaliePerDay.save();
 
